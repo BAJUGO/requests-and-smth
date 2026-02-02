@@ -34,7 +34,11 @@ async def get_all_deps_in_short():
     r_jsoned = r.json()
     deps = []
     for dep in r_jsoned.values():
-        dep_shorted = {"dep_id": dep["vklad_id"], "dep_cur": dep["vklad_val"]}
+        dep_shorted = {"dep_id": dep["vklad_id"],
+                       "dep_cur": dep["vklad_val"],
+                       "dep_period": dep["vklad_srok_text"],
+                       "dep_percent": dep["vklad_procent"],
+                       "dep_min_sum": dep["vklad_minimal"]}
         deps.append(dep_shorted)
     return deps
 
