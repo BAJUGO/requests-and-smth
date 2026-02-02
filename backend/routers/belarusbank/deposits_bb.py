@@ -1,5 +1,4 @@
 from fastapi import APIRouter
-from requests import request
 import httpx
 
 
