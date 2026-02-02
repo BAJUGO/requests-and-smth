@@ -1,8 +1,9 @@
 from fastapi import FastAPI
-from routers.belarusbank.deposits_bb import router as bb_router
+from routers.belarusbank import router as bb_router
+
+prefix_api = "/api/v0.1.0"
+
+app = FastAPI()
 
 
-app = FastAPI(prefix="/api/v0.1.0")
-
-
-app.include_router(bb_router)
+app.include_router(bb_router, prefix=prefix_api)

@@ -3,29 +3,41 @@ from requests import request
 import httpx
 
 
-router = APIRouter(prefix="/belarusbank")
+router = APIRouter(prefix="/deps", tags=["DEPS"])
 
 
 bb_link = "https://belarusbank.by/api/deposits_info"
 
 
 @router.get("/all_deps")
-async def get_all_deposits():
-    response = httpx.get(bb_link)
-    return response.json()
+async def get_all_deps():
+    r = httpx.get(bb_link)
+    return r.json()
 
 
 @router.get("/dep_by_id/{dep_id}")
 async def get_dep_by_id(dep_id: int):
-    response = httpx.get(bb_link)
-    return response.json().get(str(dep_id))
+    r = httpx.get(bb_link)
+    return r.json().get(str(dep_id))
 
 
 @router.get("/dep_by_currency/{currency}")
 async def get_dep_by_currency(currency: str):
-    response = httpx.get(url=bb_link, params={"deposit_currency": currency})
-    print(response.headers.get("content-type"))
-    return response.json()
+    r = httpx.get(url=bb_link, params={"deposit_currency": currency})
+    print(r.headers.get("content-type"))
+    return r.json()
+
+
+@router.get("/all_deps_in_short")
+async def get_all_deps_in_short():
+    r = httpx.get(url=bb_link)
+    r_jsoned = r.json()
+    deps = []
+    for dep in r_jsoned.values():
+        dep_shorted = {"dep_id": dep["vklad_id"], "dep_cur": dep["vklad_val"]}
+        deps.append(dep_shorted)
+    return deps
+
 
 
 # TODO: Selenium, httpx
