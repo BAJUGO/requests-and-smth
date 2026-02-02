@@ -10,7 +10,8 @@ requires-python = "^3.12"
 dependencies = [
     "fastapi[standard] (>=0.128.0,<0.129.0)",
     "requests (>=2.32.5,<3.0.0)",
-    "httpx (>=0.28.1,<0.29.0)"
+    "httpx (>=0.28.1,<0.29.0)",
+    "transliterate (>=1.10.2,<2.0.0)"
 ]
 
 
